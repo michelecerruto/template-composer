@@ -1,0 +1,23 @@
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(
+		12,
+		minmax(50px, 1fr)
+	); /* Adjust the number of columns */
+	grid-template-rows: repeat(12, minmax(50px, 1fr));
+	gap: 10px; /* Adjust the gap between grid items */
+	min-width: 710px !important;
+	min-height: 710px;
+	height: 100%;
+	width: 100%;
+	min-height: 400px !important;
+	background: #939344;
+	border: solid 1px #000;
+}
+
+.grid-item {
+	background-color: #f9f9f9;
+	border: 1px solid #ddd;
+	color: black;
+	/* Additional styling as needed */
+}

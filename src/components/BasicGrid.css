@@ -1,0 +1,7 @@
+.grid-stack-item-content {
+	background: #18bc9c;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	line-height: 70px; /* Match the cellHeight for vertical centering */
+}

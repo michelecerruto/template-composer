@@ -1,77 +1,50 @@
+# React + TypeScript + Vite
 
-# Template Composer
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Template Composer is a React application for building customizable, grid-based layouts. Leveraging the power of [GridStack.js](https://gridstackjs.com/), it offers an intuitive drag-and-drop interface, perfect for creating interactive templates, dashboards, and visual layouts.
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **Drag-and-Drop Interface**: Effortlessly move and position widgets within a flexible grid.
-- **Resizable Widgets**: Customize the size of each widget to create unique layouts.
-- **Dynamic Grid Layout**: Add, remove, and rearrange widgets on the fly.
-- **Integrated with Ant Design**: Beautiful and responsive UI components from [Ant Design](https://ant.design/).
-- **React and TypeScript**: Built using modern technologies for a maintainable and type-safe codebase.
+## Expanding the ESLint configuration
 
-## Getting Started
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-### Prerequisites
+- Configure the top-level `parserOptions` property like this:
 
-Ensure you have [Node.js](https://nodejs.org/) (>= 14.x) and [npm](https://www.npmjs.com/) installed.
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/template-composer.git
-   cd template-composer
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
-
-   The app will be available at `http://localhost:5173`.
-
-### Building for Production
-
-To create a production build, run:
-
-```bash
-npm run build
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-This will generate optimized static files in the `dist` folder.
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-### Preview Production Build
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-To preview the production build locally:
-
-```bash
-npm run preview
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
-
-## Scripts
-
-- **`npm run dev`**: Starts the development server using Vite.
-- **`npm run build`**: Builds the project for production.
-- **`npm run preview`**: Previews the production build.
-- **`npm run lint`**: Runs ESLint to check for code quality and style issues.
-
-## Dependencies
-
-- **GridStack.js**: For flexible, responsive grid layouts.
-- **Ant Design**: For UI components and design.
-- **@octostar/platform-api, platform-react, platform-types**: Integrations with Octostar's platform.
-
-## Development
-
-This project uses [TypeScript](https://www.typescriptlang.org/) and [ESLint](https://eslint.org/) for a robust development experience. TypeScript provides type safety, and ESLint ensures code quality.
-
-## License
-
-This project is private and not licensed for distribution. Contact the repository owner for more information.
